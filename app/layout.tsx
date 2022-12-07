@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-head-element */
 import '../styles/globals.css';
 import { Barlow, Montserrat } from '@next/font/google';
+import { Providers } from './providers';
 
 const barlow = Barlow({
   weight: ['700'],
@@ -24,7 +25,9 @@ export default function RootLayout({
       <head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
