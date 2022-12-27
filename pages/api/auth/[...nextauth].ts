@@ -1,10 +1,13 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+import { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
-export const options = {
+export const options: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
   },
+
   callbacks: {
     jwt: async ({ token, account }) => {
       if (account) {
@@ -13,27 +16,24 @@ export const options = {
 
       return token;
     },
-    session: async ({ session, token }) => {
-      session.user.access_token = token.accessToken;
+    session: async ({ session, user, token }) => {
+      session.user.access_token = token.accessToken || 'no_token';
+
       return session;
     },
   },
+
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       authorization:
         'https://accounts.spotify.com/authorize?scope=user-top-read',
-      profile(profile) {
-        return {
-          id: profile.id,
-          name: profile.display_name,
-          email: profile.email,
-          image: profile.images?.[0]?.url,
-        };
-      },
     }),
   ],
 };
 
-export default (req, res) => NextAuth(req, res, options);
+const handler = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, options);
+
+export default handler;
