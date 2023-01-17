@@ -5,13 +5,14 @@ import NextAuth from 'next-auth/next';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
 async function refreshAccessToken(token: JWT) {
-  console.log('Entrou na função refresh token');
   try {
     const url =
-      'https://accounts.spotify.com/api/token' +
+      'https://accounts.spotify.com/api/token?' +
       new URLSearchParams({
         grant_type: 'refresh_token',
         refresh_token: token.refreshToken,
+        client_id: process.env.SPOTIFY_CLIENT_ID,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
       });
 
     const response = await fetch(url, {
@@ -31,18 +32,19 @@ async function refreshAccessToken(token: JWT) {
     const refreshedTokens = await response.json();
 
     if (!response.ok) {
-      throw refreshedTokens;
+      throw new Error('RefreshAccessTokenError');
     }
 
     return {
       ...token,
       accessToken: refreshedTokens.access_token,
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
+      expires_at: Date.now() + refreshedTokens.expires_in * 1000,
     };
   } catch (error) {
     return {
       ...token,
-      error: 'RefreshAccessTokenError',
+      error,
     };
   }
 }
@@ -59,10 +61,11 @@ export const options: NextAuthOptions = {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
+          expires_at: account.expires_at,
         };
       }
 
-      if (new Date() < new Date(token.exp * 1000)) {
+      if (new Date() < new Date(token.expires_at * 1000)) {
         return token;
       }
 
@@ -70,6 +73,8 @@ export const options: NextAuthOptions = {
     },
 
     session: async ({ session, user, token }) => {
+      console.log(token);
+
       session.user.access_token = token.accessToken;
 
       return session;
