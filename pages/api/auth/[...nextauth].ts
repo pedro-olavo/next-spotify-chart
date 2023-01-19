@@ -56,25 +56,27 @@ export const options: NextAuthOptions = {
 
   callbacks: {
     jwt: async ({ token, account, user }) => {
+      console.log('Expires AT:', token.expires_at, new Date(token.expires_at));
+
       if (account && user) {
+        const expires_at = (account.expires_at || 0) * 1000;
+
         return {
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
-          expires_at: account.expires_at,
+          expires_at,
         };
       }
 
-      if (new Date() < new Date(token.expires_at * 1000)) {
+      if (Date.now() < token.expires_at) {
         return token;
       }
 
       return refreshAccessToken(token);
     },
 
-    session: async ({ session, user, token }) => {
-      console.log(token);
-
+    session: async ({ session, token }) => {
       session.user.access_token = token.accessToken;
 
       return session;
