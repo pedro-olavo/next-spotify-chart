@@ -56,8 +56,6 @@ export const options: NextAuthOptions = {
 
   callbacks: {
     jwt: async ({ token, account, user }) => {
-      console.log('Expires AT:', token.expires_at, new Date(token.expires_at));
-
       if (account && user) {
         const expires_at = (account.expires_at || 0) * 1000;
 
