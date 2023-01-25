@@ -2,38 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 import { SlInfo } from 'react-icons/sl';
-
-interface Image {
-  width: number;
-  height: number;
-  url: string;
-}
-
-interface Artist {
-  name: string;
-}
-
-interface CardProps {
-  item: {
-    name: string;
-    type: 'artist' | 'track';
-    artists?: Artist[];
-    images: Image[];
-    album?: {
-      external_urls: {
-        spotify: string;
-      };
-      images: Image[];
-      name: string;
-      release_date: string;
-      type: 'album';
-    };
-
-    external_urls: {
-      spotify: string;
-    };
-  };
-}
+import { CardProps } from './types';
 
 const Card = ({
   item: { name, type, artists, images, external_urls, album },
