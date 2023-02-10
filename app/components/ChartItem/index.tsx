@@ -2,11 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 import { SlInfo } from 'react-icons/sl';
-import { CardProps } from './types';
+import { ChartItemProps } from './types';
 
-const Card = ({
+const ChartItem = ({
   item: { name, type, artists, images, external_urls, album },
-}: CardProps) => {
+}: ChartItemProps) => {
   return (
     <a
       className="group flex w-full items-center"
@@ -63,4 +63,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default ChartItem;

@@ -8,7 +8,7 @@ export interface Artist {
   name: string;
 }
 
-export interface CardProps {
+export interface ChartItemProps {
   item: {
     name: string;
     type: 'artist' | 'track';
