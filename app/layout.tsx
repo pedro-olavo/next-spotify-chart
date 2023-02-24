@@ -10,7 +10,7 @@ const barlow = Barlow({
 });
 
 const montserrat = Montserrat({
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-montserrat',
   subsets: ['latin'],
 });
