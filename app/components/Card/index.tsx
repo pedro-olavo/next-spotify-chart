@@ -8,9 +8,9 @@ interface CardProps {
 
 const Card = ({ title, image }: CardProps) => {
   return (
-    <div className="group relative flex aspect-video h-[33vh] w-full overflow-hidden rounded-xl 2xl:aspect-auto">
+    <div className=" group relative flex aspect-video w-full overflow-hidden rounded-xl sm:aspect-[4/2] md:aspect-[5/2] 2xl:aspect-[2/1]">
       <div className="z-30 flex flex-1 items-center justify-center">
-        <h2 className="text-5xl font-bold tracking-wider lg:text-6xl xl:text-7xl">
+        <h2 className="text-4xl font-bold tracking-wider lg:text-6xl xl:text-7xl">
           {title}
         </h2>
       </div>
