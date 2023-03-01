@@ -11,8 +11,8 @@ export default function SignOutButton() {
       className="flex h-full items-center space-x-3"
       onClick={() => signOut()}
     >
-      <span className="text-lg font-semibold">Sair</span>
-      <div className="text-xl">
+      <span className="text-lg font-semibold 2xl:text-2xl">Sair</span>
+      <div className="text text-xl 2xl:text-2xl">
         <FiLogOut />
       </div>
     </button>
