@@ -6,7 +6,7 @@ interface CardProps {
   image: StaticImageData;
 }
 
-const Card = ({ title, image }: CardProps) => {
+export const Card = ({ title, image }: CardProps) => {
   return (
     <div className=" group relative flex aspect-video w-full overflow-hidden rounded-xl sm:aspect-[4/2] md:aspect-[5/2] 2xl:aspect-[2/1]">
       <div className="z-30 flex flex-1 items-center justify-center">
@@ -26,5 +26,3 @@ const Card = ({ title, image }: CardProps) => {
     </div>
   );
 };
-
-export default Card;
