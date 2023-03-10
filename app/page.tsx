@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FiUser } from 'react-icons/fi';
 import { ArtistDisplay, Card, Button } from './components';
-import useAuth from './hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 import artistSinging from '../public/artist-singing.jpg';
 import vinylRecord from '../public/vinyl-record.jpg';
