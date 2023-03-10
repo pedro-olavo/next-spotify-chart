@@ -1,3 +1,4 @@
+import { DefaultSession } from 'next-auth';
 import { Image } from '../app/components/ChartItem/types';
 
 export interface Track {
@@ -30,14 +31,18 @@ export interface LastPlayedTracks {
   track: Track;
 }
 
-export interface UserResponse {
+export interface UserInfo {
   display_name: string;
   external_urls: {
     spotify: string;
   };
   followers: {
     href: string;
-    total: 0;
+    total: Number;
+  };
+
+  following: {
+    total: number;
   };
 }
 
@@ -46,3 +51,10 @@ export interface Images {
   height: number;
   width: number;
 }
+
+export type User = DefaultSession['user'] & {
+  access_token: string;
+  info: {
+    profile_url: string;
+  };
+};
